@@ -1,15 +1,11 @@
-for i in 0...100 {
-    let s: String
+import Foundation // needed for joined method
+
+let s = (0...100).map { (i) -> String in
     switch (i % 3, i % 5) {
-    case (0, 0):
-        s = "FizzBuzz"
-    case (0, _):
-        s = "Fizz"
-    case (_, 0):
-        s = "Buzz"
-    default:
-        s = String(i)
+    case (0, 0): return "FizzBuzz"
+    case (0, _): return "Fizz"
+    case (_, 0): return "Buzz"
+    default: return String(i)
     }
-    print(s, terminator:", ")
-}
-print()
+}.joined(separator: ", ")
+print(s)
