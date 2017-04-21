@@ -1,4 +1,4 @@
-//: Playground - noun: a place where people can play
+//: Chapter 6 - Loops
 import Foundation
 
 let result1 = (0...100).reduce("") { (acc, i) in
