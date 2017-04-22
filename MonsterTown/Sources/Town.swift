@@ -8,4 +8,8 @@ struct Town {
         print("Population: \(population);", terminator: " ")
         print("number of stoplights: \(numberOfStoplights)")
     }
+
+    mutating func changePopulation(by amount: Int) {
+        population += amount
+    }
 }
