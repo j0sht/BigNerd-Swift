@@ -30,4 +30,4 @@ toDoList == reversed
 reversed = toDoList.reduce([]) { [$1] + $0 }
 reversed
 toDoList.reversed() == reversed
-//: [Next](@next)
+//: [Chapter 10 - Dictionaries](@next)
