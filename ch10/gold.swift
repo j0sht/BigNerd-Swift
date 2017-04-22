@@ -19,11 +19,8 @@ for i in stride(from: 0, to: zipCodes.count, by: 5) {
         print(printableCodes, terminator: ",\n")
     } else {
         print(spaces, terminator: "")
-        if end == zipCodes.count {
-            print(printableCodes, terminator: "]\n")
-        } else {
-            print(printableCodes, terminator: ",\n")
-        }
+        let terminator = (end == zipCodes.count) ? "]\n" : ",\n"
+        print(printableCodes, terminator: terminator)
     }
 }
 
