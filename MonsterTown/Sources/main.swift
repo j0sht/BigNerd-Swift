@@ -19,3 +19,13 @@ jillTheZombie.terrorizeTown()
 jillTheZombie.town?.printDescription()
 jillTheZombie.terrorizeTown()
 jillTheZombie.town?.printDescription()
+
+// Silver challenge test
+var deadTown = Town()
+deadTown.printDescription()
+let spike = Vampire()
+spike.town = deadTown
+print("Spikes vampires: \(spike.vampires)")
+spike.terrorizeTown()
+print("Spikes vampires: \(spike.vampires)")
+spike.town?.printDescription()
