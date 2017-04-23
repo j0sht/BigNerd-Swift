@@ -2,14 +2,19 @@ import Foundation
 
 struct Town {
     static let region = "South"
+    // Silver challenge:
+    // Add a property called mayor of type Mayor
+    var mayor = Mayor()
     var population = 5_422 {
         didSet {
             // Bronze Challenge:
             // Only log changes if the new population is less than
             // the old population
             if population < oldValue {
-                print("The population has changed to", terminator: " ")
-                print("\(population) from \(oldValue)")
+                // Silver Challenge:
+                // If the town's population decreases, have the mayor
+                // log statement to the console
+                mayor.logStatement()
             }
         }
     }
