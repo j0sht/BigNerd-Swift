@@ -1,25 +1,29 @@
 import Foundation
 
 struct Town {
-    static let region = "South"
-    // Silver challenge:
-    // Add a property called mayor of type Mayor
+    let region: String
     var mayor = Mayor()
-    var population = 5_422 {
+    var population: Int {
         didSet {
-            // Bronze Challenge:
-            // Only log changes if the new population is less than
-            // the old population
             if population < oldValue {
-                // Silver Challenge:
-                // If the town's population decreases, have the mayor
-                // log statement to the console
                 mayor.logStatement()
                 mayor.peekIntoMayorsPsyche()
             }
         }
     }
-    var numberOfStoplights = 4
+    var numberOfStoplights: Int
+
+    init(region: String, population: Int, stoplights: Int) {
+        self.region = region
+        self.population = population
+        numberOfStoplights = stoplights
+    }
+
+    init(population: Int, stoplights: Int) {
+        self.init(region: "N/A",
+                  population: population,
+                  stoplights: stoplights)
+    }
 
     var townSize: Size {
         switch population {
@@ -37,6 +41,7 @@ struct Town {
     }
 
     func printDescription() {
+        print("Region: \(region);", terminator: " ")
         print("Population: \(population);", terminator: " ")
         print("number of stoplights: \(numberOfStoplights)")
     }
