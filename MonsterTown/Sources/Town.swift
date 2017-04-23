@@ -15,6 +15,7 @@ struct Town {
                 // If the town's population decreases, have the mayor
                 // log statement to the console
                 mayor.logStatement()
+                mayor.peekIntoMayorsPsyche()
             }
         }
     }

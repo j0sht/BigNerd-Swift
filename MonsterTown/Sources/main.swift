@@ -18,3 +18,6 @@ print(Zombie.makeSpookyNoise)
 if Zombie.isTerrifying {
     print("RUN")
 }
+// Gold challenge:
+// Verify that mayor's anxietyLevel is not accessible in main
+// print(fred.town?.mayor.anxietyLevel) // confirmed
