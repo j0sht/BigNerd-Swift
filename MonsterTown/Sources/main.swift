@@ -3,7 +3,8 @@ import Foundation
 var myTown = Town(population: 5_422, stoplights: 6)
 myTown.printDescription()
 
-let fred = Zombie(town: myTown, monsterName: "Fred")
+let fred = Zombie(limp: true, fallingApart: false,
+                  town: myTown, monsterName: "Fred")
 fred.terrorizeTown()
 fred.town?.printDescription()
 
