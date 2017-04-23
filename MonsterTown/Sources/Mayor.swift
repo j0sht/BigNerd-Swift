@@ -13,13 +13,18 @@ struct Mayor {
         // Gold challenge:
         // Increment anxietylevel every time mayor logs statement
         anxietyLevel += 1
+        let bar = String(repeating: "=", count: 20)
+        print(bar)
+        print("Mayor's statment:")
+        print(String(repeating: "-", count: 20))
         print("I'm deeply saddened to hear about this", terminator: " ")
-        print("latest tragedy. I promise that my office", terminator: " ")
-        print("is looking into the nature of this", terminator: " ")
-        print("rash of violence.")
+        print("latest tragedy.")
+        print("I promise that my office is looking into", terminator: " ")
+        print("the nature of this rash of violence.")
+        print(bar)
     }
 
     func peekIntoMayorsPsyche() {
-        print("I'm freaking out!! anxietyLevel = \(anxietyLevel)")
+        print("I'm freaking out!! anxietyLevel = \(anxietyLevel) 😫")
     }
 }
