@@ -18,7 +18,7 @@ class Zombie: Monster {
         self.init(limp: limp, fallingApart: fallingApart,
                   town: nil, monsterName: "Fred")
         if walksWithLimp {
-            print("This zombie has a bad knee 🤕")
+            print("This zombie has a bad knee \u{1F915}")
         }
     }
     required init(town: Town?, monsterName: String) {
@@ -27,7 +27,7 @@ class Zombie: Monster {
         super.init(town: town, monsterName: monsterName)
     }
     deinit {
-        print("Zombie named \(name) is no longer with us. 💀")
+        print("Zombie named \(name) is no longer with us. \u{1F480}")
     }
     final override func terrorizeTown() {
         if let pop = town?.population, pop > 0, !isFallingApart {

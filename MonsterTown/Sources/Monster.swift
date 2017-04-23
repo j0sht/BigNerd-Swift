@@ -21,7 +21,7 @@ class Monster {
 
     func terrorizeTown() {
         if town != nil {
-            print("\(name) is terrorizing a town! 😈")
+            print("\(name) is terrorizing a town! \u{1F608}")
         } else {
             print("\(name) hasn't found a town to terrorize yet...")
         }

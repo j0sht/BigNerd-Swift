@@ -25,6 +25,6 @@ struct Mayor {
     }
 
     func peekIntoMayorsPsyche() {
-        print("I'm freaking out!! anxietyLevel = \(anxietyLevel) 😫")
+        print("I'm freaking out!! anxietyLevel = \(anxietyLevel) \u{1F62B}")
     }
 }
