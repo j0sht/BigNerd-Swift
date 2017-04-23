@@ -1,4 +1,8 @@
 class Monster {
+    static let isTerrifying = true
+    class var makeSpookyNoise: String {
+        return "Grr.."
+    }
     var town: Town?
     var name = "Monster"
 
