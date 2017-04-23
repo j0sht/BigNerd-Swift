@@ -1,7 +1,7 @@
 import Foundation
 
-var myTown = Town(population: 5_422, stoplights: 6)
-myTown.printDescription()
+var myTown = Town(population: 0, stoplights: 6)
+myTown?.printDescription()
 
 var fred: Zombie? = Zombie(limp: false, fallingApart: false,
                            town: myTown, monsterName: "Fred")
