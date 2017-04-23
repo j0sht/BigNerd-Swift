@@ -4,8 +4,13 @@ struct Town {
     static let region = "South"
     var population = 5_422 {
         didSet {
-            print("The population has changed to", terminator: " ")
-            print("\(population) from \(oldValue)")
+            // Bronze Challenge:
+            // Only log changes if the new population is less than
+            // the old population
+            if population < oldValue {
+                print("The population has changed to", terminator: " ")
+                print("\(population) from \(oldValue)")
+            }
         }
     }
     var numberOfStoplights = 4
