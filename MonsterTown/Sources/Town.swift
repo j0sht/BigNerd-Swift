@@ -2,7 +2,12 @@ import Foundation
 
 struct Town {
     let region = "South"
-    var population = 5_422
+    var population = 5_422 {
+        didSet {
+            print("The population has changed to", terminator: " ")
+            print("\(population) from \(oldValue)")
+        }
+    }
     var numberOfStoplights = 4
 
     var townSize: Size {

@@ -13,5 +13,4 @@ fred.town?.printDescription()
 
 print("Victim pool: \(fred.victimPool)")
 fred.victimPool = 500
-print("Victim pool: \(fred.victimPool);", terminator: " ")
-print("population: \(fred.town!.population)")
+print("Victim pool: \(fred.victimPool)")
