@@ -1,6 +1,6 @@
 import Foundation
 
-var myTown = Town(population: 0, stoplights: 6)
+var myTown = Town(population: 100_000, stoplights: 6)
 myTown?.printDescription()
 
 var fred: Zombie? = Zombie(limp: false, fallingApart: false,

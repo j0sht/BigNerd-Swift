@@ -21,10 +21,9 @@ class Zombie: Monster {
             print("This zombie has a bad knee \u{1F915}")
         }
     }
-    required init(town: Town?, monsterName: String) {
-        walksWithLimp = false
-        isFallingApart = false
-        super.init(town: town, monsterName: monsterName)
+    required convenience init(town: Town?, monsterName: String) {
+        self.init(limp: true, fallingApart: false,
+                  town: town, monsterName: monsterName)
     }
     deinit {
         print("Zombie named \(name) is no longer with us. \u{1F480}")
