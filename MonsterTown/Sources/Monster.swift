@@ -13,12 +13,11 @@ class Monster {
             town?.population = newValue
         }
     }
-
-    required init(town: Town?, monsterName: String) {
+    required init?(town: Town?, monsterName: String) {
+        guard !monsterName.isEmpty else { return nil }
         self.town = town
         name = monsterName
     }
-
     func terrorizeTown() {
         if town != nil {
             print("\(name) is terrorizing a town! \u{1F608}")

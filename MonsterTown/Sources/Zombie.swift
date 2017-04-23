@@ -6,7 +6,7 @@ class Zombie: Monster {
     override class var makeSpookyNoise: String {
         return "Brains..."
     }
-    init(limp: Bool, fallingApart: Bool, town: Town?, monsterName: String) {
+    init?(limp: Bool, fallingApart: Bool, town: Town?, monsterName: String) {
         // Because this is a designated initializer, it must
         // initialize all values specific to this class
         // before calling super.init
@@ -14,14 +14,14 @@ class Zombie: Monster {
         isFallingApart = fallingApart
         super.init(town: town, monsterName: monsterName)
     }
-    convenience init(limp: Bool, fallingApart: Bool) {
+    convenience init?(limp: Bool, fallingApart: Bool) {
         self.init(limp: limp, fallingApart: fallingApart,
                   town: nil, monsterName: "Fred")
         if walksWithLimp {
             print("This zombie has a bad knee \u{1F915}")
         }
     }
-    required convenience init(town: Town?, monsterName: String) {
+    required convenience init?(town: Town?, monsterName: String) {
         self.init(limp: true, fallingApart: false,
                   town: town, monsterName: monsterName)
     }
