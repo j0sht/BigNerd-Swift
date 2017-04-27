@@ -90,8 +90,59 @@ struct Department: TabularDataSource, CustomStringConvertible {
     }
 }
 
-var department = Department(name: "Engineering")
-department.add(Person(name: "Joe", age: 1000, yearsOfExperience: 6))
-department.add(Person(name: "Karen", age: 40, yearsOfExperience: 18))
-department.add(Person(name: "Fred", age: 50, yearsOfExperience: 20))
-printTable(department)
+// var department = Department(name: "Engineering")
+// department.add(Person(name: "Joe", age: 1000, yearsOfExperience: 6))
+// department.add(Person(name: "Karen", age: 40, yearsOfExperience: 18))
+// department.add(Person(name: "Fred", age: 50, yearsOfExperience: 20))
+// printTable(department)
+
+// Gold Challenge:
+// Create BookCollection that conforms to TabularDataSource
+// Calling printTable on BookCollection should show table of
+// books with titles, authors, and average reviews on Amazon
+struct Book {
+    let title: String
+    let author: String
+    let rating: Double
+}
+struct BookCollection: TabularDataSource, CustomStringConvertible {
+    let name: String
+    var books = [Book]()
+    init(name: String) {
+        self.name = name
+    }
+    mutating func addBook(_ book: Book) {
+        books.append(book)
+    }
+    var description: String { return name }
+    var numberOfRows: Int { return books.count }
+    var numberOfColumns: Int { return 3 }
+    func label(forColumn column: Int) -> String {
+        switch column {
+        case 0: return "Title"
+        case 1: return "Author"
+        case 2: return "Rating (out of 5)"
+        default: fatalError("Invalid column!")
+        }
+    }
+    func itemFor(row: Int, column: Int) -> String {
+        let book = books[row]
+        switch column {
+        case 0: return book.title
+        case 1: return book.author
+        case 2: return String(format: "%.2f", book.rating)
+        default: fatalError("Invalid column!")
+        }
+    }
+}
+var collection = BookCollection(name: "Computer Science")
+collection.addBook(Book(title: "Introduction to Algorithms",
+                        author: "Thomas H. Cormen",
+                        rating: 4.3))
+collection.addBook(Book(title: "SICP",
+                        author: "Harold Abelson",
+                        rating: 4.5))
+collection.addBook(Book(title: "The C Programming Language",
+                        author: "Brian W. Kernighan",
+                        rating: 4.6))
+printTable(collection)
