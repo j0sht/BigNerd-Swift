@@ -30,7 +30,7 @@ struct Person {
     let yearsOfExperience: Int
 }
 
-struct Department: TabularDataSource {
+struct Department: TabularDataSource, CustomStringConvertible {
     let name: String
     var people = [Person]()
     init(name: String) {
@@ -38,6 +38,10 @@ struct Department: TabularDataSource {
     }
     mutating func add(_ person: Person) {
         people.append(person)
+    }
+    // CustomStringConvertible
+    var description: String {
+        return "Department (\(name))"
     }
     // TabularDatasource
     var numberOfRows: Int {
@@ -70,3 +74,4 @@ department.add(Person(name: "Joe", age: 30, yearsOfExperience: 6))
 department.add(Person(name: "Karen", age: 40, yearsOfExperience: 18))
 department.add(Person(name: "Fred", age: 50, yearsOfExperience: 20))
 printTable(department)
+print(department)
