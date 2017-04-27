@@ -1,6 +1,6 @@
 import Foundation
 
-protocol TabularDataSource {
+protocol TabularDataSource: CustomStringConvertible {
     var numberOfRows: Int { get }
     var numberOfColumns: Int { get }
     func label(forColumn column: Int) -> String
@@ -8,6 +8,7 @@ protocol TabularDataSource {
 }
 
 func printTable(_ dataSource: TabularDataSource) {
+    print("Table: \(dataSource.description)")
     let cCount = dataSource.numberOfColumns
     let columnLabels = (0..<cCount).map { dataSource.label(forColumn: $0) }
     let columnWidths = columnLabels.map { $0.characters.count }
@@ -30,7 +31,7 @@ struct Person {
     let yearsOfExperience: Int
 }
 
-struct Department: TabularDataSource, CustomStringConvertible {
+struct Department: TabularDataSource {
     let name: String
     var people = [Person]()
     init(name: String) {
@@ -74,4 +75,3 @@ department.add(Person(name: "Joe", age: 30, yearsOfExperience: 6))
 department.add(Person(name: "Karen", age: 40, yearsOfExperience: 18))
 department.add(Person(name: "Fred", age: 50, yearsOfExperience: 20))
 printTable(department)
-print(department)
