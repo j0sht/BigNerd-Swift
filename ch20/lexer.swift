@@ -180,6 +180,12 @@ func evaluate(_ input: String) {
     }
 }
 
+// Bronze Challenge
+evaluate("10 + 5 - 3 - 1")
+// Silver Challenge
+evaluate("1 + 3 + 7a + 8")
+evaluate("10 + 3 3 + 7")
+// Gold Challenge
 evaluate("10 * 3 + 5 * 3")
 evaluate("10 + 3 * 5 + 3")
 evaluate("10 + 3 * 5 * 3")
