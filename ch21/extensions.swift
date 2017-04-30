@@ -16,6 +16,7 @@ struct Car {
     let year: Int
     let color: String
     let nickname: String
+    let numberOfDoors: Int
     var gasLevel: Double {
         willSet {
             precondition(newValue <= 1.0 && newValue >= 0.0,
@@ -25,7 +26,6 @@ struct Car {
 }
 extension Car: Vehicle {
     var topSpeed: Velocity { return 180 }
-    var numberOfDoors: Int { return 4 }
     var hasFlatbed: Bool { return false }
 }
 // If you want to write a new initializer for your struct
@@ -39,6 +39,7 @@ extension Car {
           year: year,
           color: "Black",
           nickname: "N/A",
+          numberOfDoors: 4,
           gasLevel: 1
         )
     }
