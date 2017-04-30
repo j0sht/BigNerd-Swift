@@ -130,7 +130,7 @@ class Parser {
             } else {
                 return value
             }
-        case .plus, .minus, .multiply, .divide:
+        default:
             throw Parser.Error.invalidToken(token, position)
         }
     }
@@ -147,11 +147,9 @@ class Parser {
             case .minus:
                 let nextNumber = try getNumber()
                 value -= nextNumber
-            case .number:
+            default:
                 // Getting a number after a number is not legal
                 throw Parser.Error.invalidToken(token, position)
-            default:
-                continue
             }
         }
         return value
@@ -163,7 +161,6 @@ func evaluate(_ input: String) {
     let lexer = Lexer(input: input)
     do {
         let tokens = try lexer.lex()
-        print("Lexer output: \(tokens)")
         let parser = Parser(tokens: tokens)
         let result = try parser.parse()
         print("Parser output: \(result)")
