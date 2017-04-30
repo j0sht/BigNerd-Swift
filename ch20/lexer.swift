@@ -5,6 +5,9 @@ enum Token {
     case plus
     // Bronze challenge
     case minus
+    // Gold challenge
+    case multiply
+    case divide
 }
 
 class Lexer {
@@ -52,6 +55,12 @@ class Lexer {
                 advance()
             case "-":
                 tokens.append(.minus)
+                advance()
+            case "*":
+                tokens.append(.multiply)
+                advance()
+            case "/":
+                tokens.append(.divide)
                 advance()
             case " ":
                 // Just advance to ignore spaces
@@ -106,8 +115,22 @@ class Parser {
         }
         switch token {
         case .number(let value):
-            return value
-        case .plus, .minus:
+            if let next = getNextToken() {
+                switch next {
+                case .multiply:
+                    let nextNum = try getNumber()
+                    return value * nextNum
+                case .divide:
+                    let nextNum = try getNumber()
+                    return value / nextNum
+                default:
+                    position -= 1
+                    return value
+                }
+            } else {
+                return value
+            }
+        case .plus, .minus, .multiply, .divide:
             throw Parser.Error.invalidToken(token, position)
         }
     }
@@ -127,6 +150,8 @@ class Parser {
             case .number:
                 // Getting a number after a number is not legal
                 throw Parser.Error.invalidToken(token, position)
+            default:
+                continue
             }
         }
         return value
@@ -155,5 +180,6 @@ func evaluate(_ input: String) {
     }
 }
 
-evaluate("1 + 3 + 7a + 8")
-evaluate("10 + 3 3 + 7")
+evaluate("10 * 3 + 5 * 3")
+evaluate("10 + 3 * 5 + 3")
+evaluate("10 + 3 * 5 * 3")
