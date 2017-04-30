@@ -3,6 +3,8 @@ import Foundation
 enum Token {
     case number(Int)
     case plus
+    // Bronze challenge
+    case minus
 }
 
 class Lexer {
@@ -35,6 +37,9 @@ class Lexer {
                 tokens.append(.number(value))
             case "+":
                 tokens.append(.plus)
+                advance()
+            case "-":
+                tokens.append(.minus)
                 advance()
             case " ":
                 // Just advance to ignore spaces
@@ -90,7 +95,7 @@ class Parser {
         switch token {
         case .number(let value):
             return value
-        case .plus:
+        case .plus, .minus:
             throw Parser.Error.invalidToken(token)
         }
     }
@@ -104,6 +109,9 @@ class Parser {
                 // After a plus, we must get another number
                 let nextNumber = try getNumber()
                 value += nextNumber
+            case .minus:
+                let nextNumber = try getNumber()
+                value -= nextNumber
             case .number:
                 // Getting a number after a number is not legal
                 throw Parser.Error.invalidToken(token)
@@ -134,6 +142,4 @@ func evaluate(_ input: String) {
 }
 
 evaluate("10 + 3 + 5")
-evaluate("10 + 3 5")
-evaluate("10 + ")
-evaluate("10 + 20 + 30 + 40")
+evaluate("10 + 5 - 3 - 1")
