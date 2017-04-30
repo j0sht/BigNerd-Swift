@@ -39,3 +39,16 @@ let strings = ["one", "two", "three"]
 let stringLengths = myMap(strings) { $0.characters.count }
 print(stringLengths)
 print(stringLengths == strings.map { $0.characters.count })
+
+func checkIfEqual<T: Equatable>(_ first: T, _ second: T) -> Bool {
+    return first == second
+}
+print(checkIfEqual(1,1))
+print(checkIfEqual("hello", "world"))
+print(checkIfEqual("hola", "hola"))
+func descriptionsMatch<T: CustomStringConvertible,
+                       U: CustomStringConvertible>(_ x: T, _ y: U) -> Bool {
+    return x.description == y.description
+}
+print(descriptionsMatch(Int(1), UInt(1)))
+print(descriptionsMatch(Float(1), Double(1)))
