@@ -64,6 +64,8 @@ extension Car {
     mutating func emptyGas(by amount: Double) {
         precondition(amount <= 1 && amount >= 0,
                      "Amount to remove must be between 0 and 1.")
+        precondition(gasLevel - amount > 0,
+                     "Cannot decrement to a negative value")
         gasLevel -= amount
     }
     mutating func fillGas() {
