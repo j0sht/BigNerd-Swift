@@ -9,7 +9,8 @@ enum Token {
 
 class Lexer {
     enum Error: Swift.Error {
-        case invalidCharacter(Character)
+        case invalidCharacter(Character, Int)
+        case invalidToken(Character, Int)
     }
     let input: String.CharacterView
     var position: String.CharacterView.Index
@@ -30,11 +31,22 @@ class Lexer {
     func lex() throws -> [Token] {
         var tokens = [Token]()
         while let nextCharacter = peek() {
+            let lastToken = tokens.last
+            let p = input.distance(from: input.startIndex, to: position)
             switch nextCharacter {
             case "0"..."9":
                 // Start of a number - need to grab the rest
                 let value = getNumber()
-                tokens.append(.number(value))
+                if let last = lastToken {
+                    switch last {
+                    case .number(_):
+                        throw Lexer.Error.invalidToken(nextCharacter, p)
+                    default:
+                        tokens.append(.number(value))
+                    }
+                } else {
+                    tokens.append(.number(value))
+                }
             case "+":
                 tokens.append(.plus)
                 advance()
@@ -46,7 +58,7 @@ class Lexer {
                 advance()
             default:
                 // Something unexpected - need to send back an error
-                throw Lexer.Error.invalidCharacter(nextCharacter)
+                throw Lexer.Error.invalidCharacter(nextCharacter, p)
             }
         }
         return tokens
@@ -72,7 +84,7 @@ class Lexer {
 class Parser {
     enum Error: Swift.Error {
         case unexpectedEndOfInput
-        case invalidToken(Token)
+        case invalidToken(Token, Int)
     }
 
     let tokens: [Token]
@@ -96,7 +108,7 @@ class Parser {
         case .number(let value):
             return value
         case .plus, .minus:
-            throw Parser.Error.invalidToken(token)
+            throw Parser.Error.invalidToken(token, position)
         }
     }
     func parse() throws -> Int {
@@ -114,7 +126,7 @@ class Parser {
                 value -= nextNumber
             case .number:
                 // Getting a number after a number is not legal
-                throw Parser.Error.invalidToken(token)
+                throw Parser.Error.invalidToken(token, position)
             }
         }
         return value
@@ -130,16 +142,18 @@ func evaluate(_ input: String) {
         let parser = Parser(tokens: tokens)
         let result = try parser.parse()
         print("Parser output: \(result)")
-    } catch Lexer.Error.invalidCharacter(let c) {
-        print("Input contained an invalid character: \(c)")
+    } catch Lexer.Error.invalidCharacter(let c, let p) {
+        print("Input contained an invalid character at index \(p): \(c)")
     } catch Parser.Error.unexpectedEndOfInput {
         print("Unexpected end of input during parsing")
-    } catch Parser.Error.invalidToken(let token) {
-        print("Invalid token during parsing: \(token)")
+    } catch Parser.Error.invalidToken(let token, let p) {
+        print("Invalid token during parsing at index \(p): \(token)")
+    } catch Lexer.Error.invalidToken(let token, let p) {
+        print("Invalid token during parsing at index \(p): \(token)")
     } catch {
         print("An error occured: \(error)")
     }
 }
 
-evaluate("10 + 3 + 5")
-evaluate("10 + 5 - 3 - 1")
+evaluate("1 + 3 + 7a + 8")
+evaluate("10 + 3 3 + 7")
