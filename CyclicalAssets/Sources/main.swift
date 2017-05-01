@@ -10,6 +10,9 @@ bob?.useNetWorthChangedHandler { netWorth in
     print("Bob's net worth is now \(netWorth)")
 }
 [laptop, stock].forEach { if let a = $0 { bob?.addAsset(a) } }
+var joe: Person? = Person(name: "Joe")
+joe?.addAsset(laptop!)
+print("Joes assets:", joe?.assets)
 bob?.releaseAsset(apartment!)
 bob?.releaseAsset(stock!)
 print(bob?.assets)

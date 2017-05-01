@@ -27,9 +27,11 @@ class Person: CustomStringConvertible {
         print("\(self) is being deallocated")
     }
     func addAsset(_ asset: Asset) {
-        accountant.gained(asset) {
-            asset.owner = self
-            assets.append(asset)
+        if asset.owner == nil {
+            accountant.gained(asset) {
+                asset.owner = self
+                assets.append(asset)
+            }
         }
     }
     func releaseAsset(_ asset: Asset) {
@@ -38,6 +40,7 @@ class Person: CustomStringConvertible {
                 asset.owner = nil
                 assets.remove(at: i)
             }
+            break
         }
     }
     func netWorthDidChange(to netWorth: Double) {
