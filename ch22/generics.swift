@@ -28,6 +28,14 @@ struct Stack<Element>: Sequence {
         }
         return Stack<U>(items: mappedItems)
     }
+    // Bronze Challenge
+    func filter(_ f: (Element) -> Bool) -> Stack<Element> {
+        var filteredItems = [Element]()
+        for item in items where f(item) {
+            filteredItems.append(item)
+        }
+        return Stack<Element>(items: filteredItems)
+    }
     // Sequence conformance
     func makeIterator() -> StackIterator<Element> {
         return StackIterator(stack: self)
@@ -50,16 +58,7 @@ func descriptionsMatch<T: CustomStringConvertible,
 // Output
 var myStack = Stack<Int>()
 [10, 20, 30].forEach { myStack.push($0) }
-var myStackIterator = StackIterator(stack: myStack)
-while let val = myStackIterator.next() {
-    print("got \(val)")
-}
-for value in myStack {
-    print("for-in loop: got \(value)")
-}
-var myOtherStack = Stack<Int>()
-myOtherStack.pushAll([1,2,3])
-myStack.pushAll(myOtherStack)
-for value in myStack {
-    print("After push items onto stack, got \(value)")
+let lessThan30 = myStack.filter { $0 < 30 }
+for item in lessThan30 {
+    print("In lessThan30: \(item)")
 }
