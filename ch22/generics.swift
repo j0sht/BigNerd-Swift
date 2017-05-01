@@ -1,6 +1,12 @@
 import Foundation
 
-struct Stack<Element> {
+struct StackIterator<T>: IteratorProtocol {
+    var stack: Stack<T>
+    mutating func next() -> T? {
+        return stack.pop()
+    }
+}
+struct Stack<Element>: Sequence {
     var items = [Element]()
 
     mutating func push(_ item: Element) {
@@ -16,18 +22,11 @@ struct Stack<Element> {
         }
         return Stack<U>(items: mappedItems)
     }
+    // Sequence conformance
+    func makeIterator() -> StackIterator<Element> {
+        return StackIterator(stack: self)
+    }
 }
-
-var nums = Stack<Int>()
-nums.push(1)
-nums.push(2)
-var doubleStacked = nums.map { 2 * $0 }
-print(nums.pop())
-print(nums.pop())
-print(nums.pop())
-print(doubleStacked.pop())
-print(doubleStacked.pop())
-
 func myMap<T,U>(_ items: [T], _ f: (T) -> (U)) -> [U] {
     var results = [U]()
     for item in items {
@@ -35,20 +34,20 @@ func myMap<T,U>(_ items: [T], _ f: (T) -> (U)) -> [U] {
     }
     return results
 }
-let strings = ["one", "two", "three"]
-let stringLengths = myMap(strings) { $0.characters.count }
-print(stringLengths)
-print(stringLengths == strings.map { $0.characters.count })
-
 func checkIfEqual<T: Equatable>(_ first: T, _ second: T) -> Bool {
     return first == second
 }
-print(checkIfEqual(1,1))
-print(checkIfEqual("hello", "world"))
-print(checkIfEqual("hola", "hola"))
 func descriptionsMatch<T: CustomStringConvertible,
                        U: CustomStringConvertible>(_ x: T, _ y: U) -> Bool {
     return x.description == y.description
 }
-print(descriptionsMatch(Int(1), UInt(1)))
-print(descriptionsMatch(Float(1), Double(1)))
+// Output
+var myStack = Stack<Int>()
+[10, 20, 30].forEach { myStack.push($0) }
+var myStackIterator = StackIterator(stack: myStack)
+while let val = myStackIterator.next() {
+    print("got \(val)")
+}
+for value in myStack {
+    print("for-in loop: got \(value)")
+}
