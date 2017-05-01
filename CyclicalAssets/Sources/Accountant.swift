@@ -9,8 +9,9 @@ class Accountant {
             netWorthChangedHandler?(netWorth)
         }
     }
-
-    func gained(_ asset: Asset) {
+    // completion is an example of a non-escaping closure
+    func gained(_ asset: Asset, completion: () -> Void) {
         netWorth += asset.value
+        completion()
     }
 }

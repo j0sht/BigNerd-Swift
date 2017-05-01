@@ -27,11 +27,18 @@ class Person: CustomStringConvertible {
         print("\(self) is being deallocated")
     }
     func addAsset(_ asset: Asset) {
-        asset.owner = self
-        assets.append(asset)
-        accountant.gained(asset)
+        accountant.gained(asset) {
+            asset.owner = self
+            assets.append(asset)
+        }
     }
     func netWorthDidChange(to netWorth: Double) {
         print("The net worth of \(self) is now \(netWorth)")
+    }
+    // marking handler as @escaping is necessary to assign it to
+    // netWorthChangedHandler; it tells the compiler that handler
+    // can escape the useNetWorthChangedHandler
+    func useNetWorthChangedHandler(handler: @escaping (Double) -> Void) {
+        accountant.netWorthChangedHandler = handler
     }
 }
