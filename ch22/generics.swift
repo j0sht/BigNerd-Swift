@@ -12,6 +12,12 @@ struct Stack<Element>: Sequence {
     mutating func push(_ item: Element) {
         items.append(item)
     }
+    mutating func pushAll<S: Sequence>(_ s: S)
+      where S.Iterator.Element == Element {
+        for item in s {
+            self.push(item)
+        }
+    }
     mutating func pop() -> Element? {
         return items.popLast()
     }
@@ -50,4 +56,10 @@ while let val = myStackIterator.next() {
 }
 for value in myStack {
     print("for-in loop: got \(value)")
+}
+var myOtherStack = Stack<Int>()
+myOtherStack.pushAll([1,2,3])
+myStack.pushAll(myOtherStack)
+for value in myStack {
+    print("After push items onto stack, got \(value)")
 }
