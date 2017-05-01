@@ -3,7 +3,7 @@ import Foundation
 class Asset: CustomStringConvertible {
     let name: String
     let value: Double
-    var owner: Person?
+    weak var owner: Person?
     // CustomStringConvertible
     var description: String {
         if let owner = owner {
