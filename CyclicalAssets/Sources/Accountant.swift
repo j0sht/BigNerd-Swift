@@ -14,4 +14,8 @@ class Accountant {
         netWorth += asset.value
         completion()
     }
+    func released(_ asset: Asset, completion: () -> Void) {
+        netWorth -= asset.value
+        completion()
+    }
 }

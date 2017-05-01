@@ -32,6 +32,14 @@ class Person: CustomStringConvertible {
             assets.append(asset)
         }
     }
+    func releaseAsset(_ asset: Asset) {
+        for (i, a) in assets.enumerated() where (a === asset) {
+            accountant.released(asset) {
+                asset.owner = nil
+                assets.remove(at: i)
+            }
+        }
+    }
     func netWorthDidChange(to netWorth: Double) {
         print("The net worth of \(self) is now \(netWorth)")
     }
