@@ -14,7 +14,7 @@ extension Point: Comparable {
 }
 extension Point: CustomStringConvertible {
     var description: String {
-        return "Point(x: \(x), y: \(y))"
+        return "(\(x), \(y))"
     }
 }
 // Bronze challenge
